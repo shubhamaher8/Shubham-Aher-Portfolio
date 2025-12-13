@@ -39,18 +39,21 @@ export const Contact: React.FC = () => {
             <div className="w-full max-w-2xl bg-base-card border border-data-cyan/30 rounded shadow-2xl shadow-neon-cyan/5 overflow-hidden font-mono">
 
                 {/* Header Bar */}
-                <div className="bg-[#111] border-b border-white/5 py-2 px-4 flex items-center justify-between">
-                    <div className="flex gap-2">
+                <div className="bg-[#111] border-b border-white/5 py-2 px-4 flex items-center justify-between gap-4">
+                    <div className="flex gap-2 shrink-0">
                         <div className="w-3 h-3 rounded-full bg-red-500/80" />
                         <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                         <div className="w-3 h-3 rounded-full bg-green-500/80" />
                     </div>
-                    <div className="text-gray-500 text-xs tracking-widest">secure_uplink.exe — bash — 80x24</div>
-                    <div className="w-10" /> {/* Spacer for balance */}
+                    <div className="text-gray-500 text-xs tracking-widest truncate text-center flex-1">
+                        <span className="hidden sm:inline">secure_uplink.exe — bash — 80x24</span>
+                        <span className="sm:hidden">secure_uplink.exe</span>
+                    </div>
+                    <div className="w-10 shrink-0" /> {/* Spacer for balance */}
                 </div>
 
                 {/* Content Area */}
-                <div className="p-8 md:p-12">
+                <div className="p-6 md:p-12">
                     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
                         <input type="hidden" value="YOUR_ACCESS_KEY_HERE" {...register("access_key")} />
                         {/* USER_TODO: Replace the above value with your Web3Forms Access Key */}
