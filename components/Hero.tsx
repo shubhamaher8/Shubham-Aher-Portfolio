@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Terminal, Cpu, FileText, Download } from 'lucide-react';
+import { Terminal, Cpu, FileText, ArrowRightToLine } from 'lucide-react';
 
 const Hero: React.FC = () => {
   return (
@@ -39,15 +39,17 @@ const Hero: React.FC = () => {
 
         {/* Resume Button */}
         <motion.a
-          href="sandbox:/mnt/data/SHUBHAM RESUME.docx"
+          href="assets/Resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
           className="inline-flex items-center gap-3 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-white transition-all group"
         >
           <FileText size={18} className="text-neon-green" />
-          <span className="font-mono text-sm">Download Resume</span>
-          <Download size={16} className="opacity-0 group-hover:opacity-100 -translate-y-1 translate-x-1 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+          <span className="font-mono text-sm">Résumé Preview</span>
+          <ArrowRightToLine size={19} className="opacity-0 group-hover:opacity-100 -translate-y-1 translate-x-1 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
         </motion.a>
 
       </div>
