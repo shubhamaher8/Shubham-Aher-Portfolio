@@ -19,7 +19,7 @@ const projectData: Project[] = [
     description: "A comprehensive phishing simulation and security awareness platform. Features real-time threat analytics, automated campaign orchestration, and employee risk scoring models.",
     year: "2024",
     category: "CYBERSEC",
-    imageSrc: "assets/Social.png",
+    imageSrc: "/Social.png",
     tags: ["React", "Node.js", "MongoDB", "Auth0"],
     githubLink: "#",
     demoLink: "#"
@@ -29,7 +29,7 @@ const projectData: Project[] = [
     description: "AI-powered agricultural intelligence system providing crop disease detection, localized weather forecasting, and market price prediction for Indian farmers.",
     year: "2024",
     category: "AGRITECH AI",
-    imageSrc: "assets/Krishi.png",
+    imageSrc: "/Krishi.png",
     tags: ["TensorFlow", "FastAPI", "Next.js", "PostgreSQL"],
     githubLink: "#",
     demoLink: "#"
@@ -39,7 +39,7 @@ const projectData: Project[] = [
     description: "Decentralized peer-to-peer energy trading platform utilizing Ethereum smart contracts. Enables local communities to trade surplus solar energy securely and transparently.",
     year: "2023",
     category: "WEB3 / TEZOS",
-    imageSrc: "assets/Shakti.png",
+    imageSrc: "/Shakti.png",
     tags: ["Solidity", "Ether.js", "React", "Tailwind"],
     githubLink: "#",
     demoLink: "#"
@@ -49,7 +49,7 @@ const projectData: Project[] = [
     description: "Financial risk assessment tool leveraging an ensemble of machine learning models to predict loan defaults with 94% accuracy. Includes interactive visualization dashboard.",
     year: "2023",
     category: "FINTECH ML",
-    imageSrc: "assets/Loan.png",
+    imageSrc: "/Loan.png",
     tags: ["Python", "Scikit-Learn", "Streamlit", "Pandas"],
     githubLink: "#",
     demoLink: "#"

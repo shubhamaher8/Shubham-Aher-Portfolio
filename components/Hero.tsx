@@ -39,7 +39,7 @@ const Hero: React.FC = () => {
 
         {/* Resume Button */}
         <motion.a
-          href="assets/Resume.pdf"
+          href="/Resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
           initial={{ opacity: 0 }}
