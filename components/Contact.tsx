@@ -3,8 +3,9 @@ import { useForm } from 'react-hook-form';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const Contact: React.FC = () => {
-    const { register, handleSubmit, reset, formState: { isSubmitting, isSubmitSuccessful } } = useForm();
+    const { register, handleSubmit, reset, formState: { isSubmitting, isValid } } = useForm({ mode: "onChange" });
     const [success, setSuccess] = useState(false);
+    const [messageFocused, setMessageFocused] = useState(false);
 
     const onSubmit = async (data: any) => {
         // Web3Forms submission
@@ -55,8 +56,7 @@ export const Contact: React.FC = () => {
                 {/* Content Area */}
                 <div className="p-6 md:p-12">
                     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
-                        <input type="hidden" value="YOUR_ACCESS_KEY_HERE" {...register("access_key")} />
-                        {/* USER_TODO: Replace the above value with your Web3Forms Access Key */}
+                        <input type="hidden" value={import.meta.env.VITE_WEB3FORMS_ACCESS_KEY} {...register("access_key")} />
 
                         <TerminalInput
                             label="ENTER_IDENTITY:"
@@ -76,29 +76,40 @@ export const Contact: React.FC = () => {
 
                         <div className="flex flex-col gap-2 relative group">
                             <label className="text-sm text-gray-500 font-bold block mb-1">
-                                <span className="text-ai-purple mr-2">&gt;</span>
+                                <span className={`${messageFocused ? 'text-ai-purple' : 'text-gray-500'} mr-2`}>&gt;</span>
                                 TRANSMISSION_DATA:
                             </label>
                             <div className="relative">
                                 <textarea
-                                    {...register("message", { required: true })}
-                                    className="w-full bg-transparent border-b border-white/10 text-white font-mono py-2 focus:outline-none focus:border-ai-purple transition-colors resize-none h-32"
+                                    {...register("message", { required: true, minLength: 10 })} 
+                                    rows={2}
+                                    className="w-full bg-transparent border-b border-white/10 text-white font-mono py-2 focus:outline-none focus:border-ai-purple transition-colors resize-none h-12 pr-4"
+                                    onFocus={() => setMessageFocused(true)}
+                                    onBlur={() => setMessageFocused(false)}
                                 />
-                                {/* Blinking Block Cursor Logic would be complex for textarea, simplifying visuals here */}
-                                <div className="absolute bottom-2 right-0 pointer-events-none">
-                                    <motion.span
-                                        animate={{ opacity: [1, 0] }}
-                                        transition={{ repeat: Infinity, duration: 0.8 }}
-                                        className="inline-block w-2 h-4 bg-ai-purple"
-                                    />
-                                </div>
+                                <AnimatePresence>
+                                    {messageFocused && (
+                                        <motion.div
+                                            initial={{ opacity: 0, x: -10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0 }}
+                                            className="absolute right-0 top-2 pointer-events-none"
+                                        >
+                                            <motion.span
+                                                animate={{ opacity: [1, 0, 1] }}
+                                                transition={{ repeat: Infinity, duration: 0.8, ease: "linear", repeatType: "reverse" }}
+                                                className="inline-block w-2.5 h-5 bg-ai-purple"
+                                            />
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </div>
                         </div>
 
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            disabled={isSubmitting}
+                            disabled={isSubmitting || !isValid}
                             className={`w-full py-4 mt-8 font-bold text-black font-mono transition-all duration-200 relative overflow-hidden group ${success ? 'bg-signal-green' : 'bg-signal-green hover:bg-white'}`}
                         >
                             <span className="relative z-10 flex items-center justify-center gap-2">
@@ -142,7 +153,7 @@ const TerminalInput: React.FC<{ label: string; register: any; name: string; type
             <div className="relative flex items-center">
                 <input
                     type={type}
-                    {...register(name, { required })}
+                    {...register(name, { required, ...(type === "email" ? { pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i, message: "Invalid email" } } : { minLength: 2 }) })}
                     className="w-full bg-transparent border-b border-white/10 text-white font-mono py-2 focus:outline-none focus:border-ai-purple transition-colors pr-4"
                     onFocus={() => setFocused(true)}
                     onBlur={() => setFocused(false)}
@@ -160,7 +171,7 @@ const TerminalInput: React.FC<{ label: string; register: any; name: string; type
                         >
                             <motion.span
                                 animate={{ opacity: [1, 0, 1] }}
-                                transition={{ repeat: Infinity, duration: 0.8, ease: "steps(2)" }}
+                                transition={{ repeat: Infinity, duration: 0.8, ease: "linear", repeatType: "reverse" }}
                                 className="inline-block w-2.5 h-5 bg-ai-purple"
                             />
                         </motion.div>
